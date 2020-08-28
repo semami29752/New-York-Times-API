@@ -11,9 +11,10 @@ def query_site(page=0):
     begin_date = datetime.datetime.today() + delta
 
     api_key = "#######"
+    article_filter = 'iran'
     url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
     params = {"api-key": api_key,
-    'q': 'iran','begin_date' : begin_date.strftime('%Y%m%d'), 'page': page}
+    'q': article_filter, 'begin_date' : begin_date.strftime('%Y%m%d'), 'page': page}
     r = requests.get(url, params = params)
     if r.status_code == 200:
         data = r.json()
