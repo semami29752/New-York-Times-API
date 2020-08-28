@@ -56,7 +56,7 @@ except KeyError:
 
 #Check to see if any Iran related article were found
 if content:
-    content = content.encode('utf-8') #Convert Unicode content to ascii
+    content = content.encode('utf-8') #Convert Unicode content to plain string
 else:
     content = "No articles related to Iran found!"
 
