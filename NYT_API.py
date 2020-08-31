@@ -8,13 +8,13 @@ import time
 def query_site(page=0):
     days_to_go_back = -1
     delta = datetime.timedelta(days_to_go_back)
-    begin_date = datetime.datetime.today() + delta
+    query_date = datetime.datetime.today() + delta
 
     api_key = "#######"
     article_filter = 'iran'
     url = 'https://api.nytimes.com/svc/search/v2/articlesearch.json'
     params = {"api-key": api_key,
-    'q': article_filter, 'begin_date' : begin_date.strftime('%Y%m%d'), 'page': page}
+    'q': article_filter, 'begin_date' : query_date.strftime('%Y%m%d'), 'end_date': query_date.strftime('%Y%m%d'), 'page': page}
     r = requests.get(url, params = params)
     if r.status_code == 200:
         data = r.json()
@@ -44,8 +44,6 @@ try:
                 content += (article['headline']['main']+"\n")
                 content += (">ABSTRACT: ")
                 content += (article['abstract']+"\n")
-                content += (">FIRST PARAGRAPH: ")
-                content += (article['lead_paragraph']+"\n")
                 content += (">SOURCE: ")
                 content += (article['source']+"\n")
                 content += (">URL: ")
@@ -66,8 +64,8 @@ password = '###########'
 
 #Define Email attributes
 msg = MIMEMultipart()
-msg["Subject"] = "NYTimes Article " + str(datetime.datetime.today().strftime('%m-%d'))
-msg["From"] = "Samin Emami   ######@gmail.com"
+msg["Subject"] = article_filter + " Articles " + str(datetime.datetime.today().strftime('%m-%d'))
+msg["From"] = "NY Times"
 msg["To"] = "########@gmail.com"
 #msg["Cc"] = ""
 body = MIMEText(content)
